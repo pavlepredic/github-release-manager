@@ -1,0 +1,19 @@
+{
+    "name": "pavlepredic/github-release-manager",
+    "type": "project",
+    "require": {
+        "symfony/console": "^3.3",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "Pavle Predic",
+            "email": "ppr@hellofresh.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PavlePredic\\GithubReleaseManager\\": "src"
+        }
+    }
+}
