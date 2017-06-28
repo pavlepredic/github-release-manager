@@ -18,7 +18,6 @@ class DeleteReleasesCommand extends BaseReleasesCommand
         $this
             ->setName('del')
             ->setDescription('Deletes Github releases')
-            ->addOption('force', '-f', InputOption::VALUE_NONE, 'Don\'t ask for confirmation')
             ->addOption('with-tags', null, InputOption::VALUE_NONE, 'Delete the associated tag as well')
         ;
 
@@ -29,7 +28,6 @@ class DeleteReleasesCommand extends BaseReleasesCommand
     {
         $token = $input->getOption('token');
         $repo = $input->getArgument('repo');
-        $force = $input->getOption('force');
         $withTags = $input->getOption('with-tags');
 
         if (!$token) {
@@ -39,26 +37,35 @@ class DeleteReleasesCommand extends BaseReleasesCommand
         $client = new GithubApiClient(new Client(), $token);
 
         $releases = $client->fetchAllReleases($repo);
-        $filtered = $this->filterReleases($input, $releases);
+        $releases = $this->filterReleases($input, $releases);
 
-        foreach ($filtered as $release) {
-            $helper = $this->getHelper('question');
-            $q = 'Delete this release';
-            if ($withTags) {
-                $q.= ' and the associated tag';
-            }
+        if (empty($releases)) {
+            $output->writeln('No releases matching the criteria');
+            return;
+        }
 
-            $question = new ConfirmationQuestion(sprintf('%s? (Y/N)', $q), false);
-            $this->printReleases($output, [$release]);
-            if ($force || $helper->ask($input, $output, $question)) {
-                $client->deleteRelease($repo, $release['id']);
-                if ($withTags && !$release['draft']) {
-                    $client->deleteTag($repo, $release['tag_name']);
-                }
-                $output->writeln('Deleted');
-            } else {
-                $output->writeln('Skipping');
+        $this->printReleases($output, $releases);
+
+        $helper = $this->getHelper('question');
+        $q = 'Delete these releases';
+        if ($withTags) {
+            $q.= ' and the associated tags';
+        }
+
+        $question = new ConfirmationQuestion(sprintf('%s? (Y/N)', $q), false);
+        if (!$helper->ask($input, $output, $question)) {
+            $output->writeln('Aborting');
+            return;
+        }
+
+        foreach ($releases as $release) {
+            $client->deleteRelease($repo, $release['id']);
+
+            if ($withTags && !$release['draft']) {
+                $client->deleteTag($repo, $release['tag_name']);
             }
         }
+
+        $output->writeln('Done');
     }
 }
