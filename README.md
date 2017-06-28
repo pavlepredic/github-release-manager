@@ -45,3 +45,9 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 - Delete old releases without asking for confirmation (dangerous):
 
 `./console.php del <token> pavlepredic/github-release-manager --before 2017-06-28` --force=true
+
+## Installation
+
+- `git clone https://github.com/pavlepredic/github-release-manager`
+- `cd github-release-manager`
+- `composer install`
