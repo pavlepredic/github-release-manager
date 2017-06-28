@@ -27,12 +27,11 @@ class ListReleasesCommand extends BaseReleasesCommand
 
         $client = new GithubApiClient(new Client(), $token);
 
-        $releases = $client->getReleases($repo);
+        $releases = $client->fetchAllReleases($repo);
         $releases = $this->filterReleases($input, $releases);
 
         foreach ($releases as $release) {
             $this->printRelease($output, $release);
-            //echo sprintf('%s%s', $client->getReleaseAsString($release), "\n");
         }
     }
 }
