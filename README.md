@@ -57,7 +57,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 - Delete old releases along with associated tags:
 
-`./grm del pavlepredic/github-release-manager --before 2017-06-28 --token=<token> --with-tags`
+`./grm rm pavlepredic/github-release-manager --before 2017-06-28 --token=<token> --with-tags`
 
 ## Installation
 
