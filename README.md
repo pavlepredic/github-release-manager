@@ -11,8 +11,10 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 ### Optional arguments
 
 - `--token` or `-t` : GitHub access token (if the repository is private, you must provide a token)
+- `--type` : filter by type (release, prerelease or draft)
 - `--author` or `-a` : filter by author (using GitHub handle)
-- `--before` or `-b` : filter releases by date (only return releases older than the provided date)
+- `--created-before` : filter releases by creation date (only return releases created before the provided date)
+- `--published-before` : filter releases by publish date (only return releases published before the provided date)
 
 ## Deleting in bulk
 
@@ -21,8 +23,10 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 ### Optional arguments
 
 - `--token` or `-t` : GitHub access token (required)
+- `--type` : filter by type (release, prerelease or draft)
 - `--author` or `-a` : filter by author (using GitHub handle)
-- `--before` or `-b` : filter releases by date (only delete releases older than the provided date)
+- `--created-before` : filter releases by creation date (only delete releases created before the provided date)
+- `--published-before` : filter releases by publish date (only delete releases published before the provided date)
 - `--force` or `-f` : force the operation without asking for confirmation (no value required)
 - `--with-tags` : also delete the associated tag (no value required)
 
@@ -32,6 +36,10 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 `./console.php ls pavlepredic/github-release-manager`
 
+- List drafts:
+
+`./console.php ls pavlepredic/github-release-manager --type=draft`
+
 - List releases made by me in this repository:
 
 `./console.php ls pavlepredic/github-release-manager --author pavlepredic`
@@ -39,6 +47,10 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 - List releases made by me and published before `2017-06-28` in this repository:
 
 `./console.php ls pavlepredic/github-release-manager --author pavlepredic --before 2017-06-28`
+
+- Delete drafts:
+
+`./console.php del pavlepredic/github-release-manager --type=draft --token=<token>`
 
 - Delete old releases:
 

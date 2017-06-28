@@ -6,7 +6,6 @@ use GuzzleHttp\Client;
 use PavlePredic\GithubReleaseManager\Service\GithubApiClient;
 use PavlePredic\GithubReleaseManager\Service\ReleaseFilter;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ListReleasesCommand extends BaseReleasesCommand
