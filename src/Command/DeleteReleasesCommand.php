@@ -37,7 +37,7 @@ class DeleteReleasesCommand extends BaseReleasesCommand
         foreach ($filtered as $release) {
             $helper = $this->getHelper('question');
             $question = new ConfirmationQuestion('Delete this release? (Y/N)', false);
-            $this->printRelease($output, $release);
+            $this->printReleases($output, [$release]);
             if ($force || $helper->ask($input, $output, $question)) {
                 $client->deleteRelease($repo, $release['id']);
                 $output->writeln('Deleted');

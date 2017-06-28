@@ -6,6 +6,7 @@ use PavlePredic\GithubReleaseManager\Filter\AuthorFilter;
 use PavlePredic\GithubReleaseManager\Filter\PublishedBeforeFilter;
 use PavlePredic\GithubReleaseManager\Service\ReleaseFilter;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -47,17 +48,33 @@ abstract class BaseReleasesCommand extends Command
         return $releases;
     }
 
-    protected function printRelease(OutputInterface $output, array $release) : void
+    protected function printReleases(OutputInterface $output, array $releases) : void
     {
-        $output->writeln(sprintf(
-            'Release: "%s", Author: "%s", Name: "%s", Tag: "%s", Created: "%s", Published: "%s"',
-            $release['id'],
-            $release['author']['login'],
-            $release['name'],
-            $release['tag_name'],
-            $release['created_at'],
-            $release['published_at']
-        ));
+        $table = new Table($output);
+        $table->setHeaders([
+            '#',
+            'Release ID',
+            'Author',
+            'Name',
+            'Tag',
+            'Created at',
+            'Published at',
+        ]);
+
+        $i = 0;
+        foreach ($releases as $release) {
+            $table->addRow([
+                ++$i,
+                $release['id'],
+                $release['author']['login'],
+                $release['name'],
+                $release['tag_name'],
+                $release['created_at'],
+                $release['published_at']
+            ]);
+        }
+
+        $table->render();
     }
 
 }

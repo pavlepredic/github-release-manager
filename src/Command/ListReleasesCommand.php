@@ -30,8 +30,6 @@ class ListReleasesCommand extends BaseReleasesCommand
         $releases = $client->fetchAllReleases($repo);
         $releases = $this->filterReleases($input, $releases);
 
-        foreach ($releases as $release) {
-            $this->printRelease($output, $release);
-        }
+        $this->printReleases($output, $releases);
     }
 }
