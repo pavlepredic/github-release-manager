@@ -45,7 +45,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 - List releases made by me and published before `2017-06-28` in this repository:
 
-`./grm ls pavlepredic/github-release-manager --author pavlepredic --before 2017-06-28`
+`./grm ls pavlepredic/github-release-manager --author pavlepredic --published-before 2017-06-28`
 
 - Delete drafts:
 
@@ -53,11 +53,11 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 - Delete old releases:
 
-`./grm rm pavlepredic/github-release-manager --before 2017-06-28 --token=<token>`
+`./grm rm pavlepredic/github-release-manager --published-before 2017-06-28 --token=<token>`
 
 - Delete old releases along with associated tags:
 
-`./grm rm pavlepredic/github-release-manager --before 2017-06-28 --token=<token> --with-tags`
+`./grm rm pavlepredic/github-release-manager --published-before 2017-06-28 --token=<token> --with-tags`
 
 ## Installation
 
