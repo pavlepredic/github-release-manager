@@ -5,6 +5,7 @@ namespace PavlePredic\GithubReleaseManager\Command;
 use GuzzleHttp\Client;
 use PavlePredic\GithubReleaseManager\Service\GithubApiClient;
 use PavlePredic\GithubReleaseManager\Service\ReleaseFilter;
+use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +18,8 @@ class DeleteReleasesCommand extends BaseReleasesCommand
         $this
             ->setName('del')
             ->setDescription('Deletes Github releases')
-            ->addOption('force', 'f', InputOption::VALUE_OPTIONAL, 'Do not ask for confirmation', false)
+            ->addOption('force', '-f', InputOption::VALUE_NONE, 'Don\'t ask for confirmation')
+            ->addOption('with-tags', null, InputOption::VALUE_NONE, 'Delete the associated tag as well')
         ;
 
         parent::configure();
@@ -25,9 +27,14 @@ class DeleteReleasesCommand extends BaseReleasesCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $token = $input->getArgument('token');
+        $token = $input->getOption('token');
         $repo = $input->getArgument('repo');
-        $force = filter_var($input->getOption('force'), FILTER_VALIDATE_BOOLEAN);
+        $force = $input->getOption('force');
+        $withTags = $input->getOption('with-tags');
+
+        if (!$token) {
+            throw new InvalidOptionException('You must provide a token for `del` operation');
+        }
 
         $client = new GithubApiClient(new Client(), $token);
 
@@ -36,10 +43,18 @@ class DeleteReleasesCommand extends BaseReleasesCommand
 
         foreach ($filtered as $release) {
             $helper = $this->getHelper('question');
-            $question = new ConfirmationQuestion('Delete this release? (Y/N)', false);
+            $q = 'Delete this release';
+            if ($withTags) {
+                $q.= ' and the associated tag';
+            }
+
+            $question = new ConfirmationQuestion(sprintf('%s? (Y/N)', $q), false);
             $this->printReleases($output, [$release]);
             if ($force || $helper->ask($input, $output, $question)) {
                 $client->deleteRelease($repo, $release['id']);
+                if ($withTags) {
+                    $client->deleteTag($repo, $release['tag_name']);
+                }
                 $output->writeln('Deleted');
             } else {
                 $output->writeln('Skipping');

@@ -17,10 +17,10 @@ abstract class BaseReleasesCommand extends Command
     protected function configure()
     {
         $this
-            ->addArgument('token', InputArgument::REQUIRED, 'Github token')
             ->addArgument('repo', InputArgument::REQUIRED, 'Github repository (in user/repo format)')
-            ->addOption('before', 'b', InputOption::VALUE_OPTIONAL, 'Filter releases older than date')
-            ->addOption('author', 'a', InputOption::VALUE_OPTIONAL, 'Filter releases by author')
+            ->addOption('before', 'b', InputOption::VALUE_REQUIRED, 'Filter releases older than date')
+            ->addOption('author', 'a', InputOption::VALUE_REQUIRED, 'Filter releases by author')
+            ->addOption('token', 't', InputOption::VALUE_REQUIRED, 'Github token')
         ;
     }
 

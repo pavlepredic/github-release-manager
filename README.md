@@ -4,13 +4,13 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 ## Listing
 
-`./console.php ls <token> <repo>`
+`./console.php ls <repo>`
 
-- `<token>` is the GitHub access token
-- `<repo>` is the GitHub repository identifier, in `user/repo` format, eg `pavlepredic/github-release-manager`
+`<repo>` is the GitHub repository identifier, in `user/repo` format, eg `pavlepredic/github-release-manager`
 
 ### Optional arguments
 
+- `--token` or `-t` : GitHub access token (if the repository is private, you must provide a token)
 - `--author` or -`a` : filter by author (using GitHub handle)
 - `--before` or `-b` : filter releases by date (only return releases older than the provided date)
 
@@ -20,6 +20,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 ### Optional arguments
 
+- `--token` or `-t` : GitHub access token (required)
 - `--author` or -`a` : filter by author (using GitHub handle)
 - `--before` or `-b` : filter releases by date (only delete releases older than the provided date)
 - `--force` or `-f` : force the operation without asking for confirmation
@@ -28,23 +29,23 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 - List all releases in this repository:
 
-`./console.php ls <token> pavlepredic/github-release-manager`
+`./console.php ls pavlepredic/github-release-manager`
 
 - List releases made by me in this repository:
 
-`./console.php ls <token> pavlepredic/github-release-manager --author pavlepredic`
+`./console.php ls pavlepredic/github-release-manager --author pavlepredic`
 
 - List releases made by me and published before `2017-06-28` in this repository:
 
-`./console.php ls <token> pavlepredic/github-release-manager --author pavlepredic --before 2017-06-28`
+`./console.php ls pavlepredic/github-release-manager --author pavlepredic --before 2017-06-28`
 
 - Delete old releases:
 
-`./console.php del <token> pavlepredic/github-release-manager --before 2017-06-28`
+`./console.php del pavlepredic/github-release-manager --before 2017-06-28 --token=<token>`
 
 - Delete old releases without asking for confirmation (dangerous):
 
-`./console.php del <token> pavlepredic/github-release-manager --before 2017-06-28` --force=true
+`./console.php del pavlepredic/github-release-manager --before 2017-06-28 --force=true --token=<token>`
 
 ## Installation
 

@@ -24,7 +24,7 @@ class GithubApiClient
      */
     private $token;
 
-    public function __construct(ClientInterface $httpClient, string $token, string $baseUrl = self::BASE_URL)
+    public function __construct(ClientInterface $httpClient, string $token = null, string $baseUrl = self::BASE_URL)
     {
         $this->httpClient = $httpClient;
         $this->token = $token;
@@ -45,6 +45,13 @@ class GithubApiClient
         return $response->getStatusCode() === 204;
     }
 
+    public function deleteTag(string $repo, string $tag) : bool
+    {
+        $url = sprintf('repos/%s/git/refs/tags/%s', $repo, $tag);
+        $response = $this->httpClient->request('DELETE', $url, $this->getDefaultOptions());
+        return $response->getStatusCode() === 204;
+    }
+
     public function fetchAllReleases(string $repo) : array
     {
         $allReleases = [];
@@ -60,12 +67,17 @@ class GithubApiClient
 
     private function getDefaultOptions() : array
     {
-        return [
+        $opts = [
             'base_uri' => $this->baseUrl,
-            'headers' => [
-                'Authorization' => sprintf('token %s', $this->token),
-            ],
         ];
+
+        if ($this->token) {
+            $opts['headers'] = [
+                'Authorization' => sprintf('token %s', $this->token),
+            ];
+        }
+
+        return $opts;
     }
 
 }
