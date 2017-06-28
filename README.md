@@ -16,7 +16,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 ## Deleting in bulk
 
-`./console.php del <token> <repo>`
+`./console.php del <repo> --token=<token>`
 
 ### Optional arguments
 
