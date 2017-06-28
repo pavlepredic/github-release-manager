@@ -71,6 +71,6 @@ class DeleteReleasesCommand extends BaseReleasesCommand
         }
 
         $progressBar->finish();
-        $output->writeln();
+        $output->writeln('');
     }
 }
