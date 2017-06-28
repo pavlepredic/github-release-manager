@@ -11,7 +11,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 ### Optional arguments
 
 - `--token` or `-t` : GitHub access token (if the repository is private, you must provide a token)
-- `--author` or -`a` : filter by author (using GitHub handle)
+- `--author` or `-a` : filter by author (using GitHub handle)
 - `--before` or `-b` : filter releases by date (only return releases older than the provided date)
 
 ## Deleting in bulk
@@ -21,7 +21,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 ### Optional arguments
 
 - `--token` or `-t` : GitHub access token (required)
-- `--author` or -`a` : filter by author (using GitHub handle)
+- `--author` or `-a` : filter by author (using GitHub handle)
 - `--before` or `-b` : filter releases by date (only delete releases older than the provided date)
 - `--force` or `-f` : force the operation without asking for confirmation
 
