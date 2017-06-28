@@ -43,6 +43,10 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 `./console.php del pavlepredic/github-release-manager --before 2017-06-28 --token=<token>`
 
+- Delete old releases along with associated tags:
+
+`./console.php del pavlepredic/github-release-manager --before 2017-06-28 --token=<token> --with-tags`
+
 - Delete old releases without asking for confirmation (dangerous):
 
 `./console.php del pavlepredic/github-release-manager --before 2017-06-28 --force=true --token=<token>`
