@@ -17,7 +17,7 @@ class DeleteReleasesCommand extends BaseReleasesCommand
     protected function configure()
     {
         $this
-            ->setName('del')
+            ->setName('rm')
             ->setDescription('Deletes Github releases')
             ->addOption('with-tags', null, InputOption::VALUE_NONE, 'Delete the associated tag as well')
         ;
@@ -32,7 +32,7 @@ class DeleteReleasesCommand extends BaseReleasesCommand
         $withTags = $input->getOption('with-tags');
 
         if (!$token) {
-            throw new InvalidOptionException('You must provide a token for `del` operation');
+            throw new InvalidOptionException('You must provide a token for this operation');
         }
 
         $client = new GithubApiClient(new Client(), $token);

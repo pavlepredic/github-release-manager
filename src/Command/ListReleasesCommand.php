@@ -30,6 +30,11 @@ class ListReleasesCommand extends BaseReleasesCommand
         $releases = $client->fetchAllReleases($repo);
         $releases = $this->filterReleases($input, $releases);
 
+        if (empty($releases)) {
+            $output->writeln('No releases matching the criteria');
+            return;
+        }
+
         $this->printReleases($output, $releases);
     }
 }

@@ -4,7 +4,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 ## Listing
 
-`./console.php ls <repo>`
+`./grm ls <repo>`
 
 `<repo>` is the GitHub repository identifier, in `user/repo` format, eg `pavlepredic/github-release-manager`
 
@@ -18,7 +18,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 ## Deleting in bulk
 
-`./console.php del <repo> --token=<token>`
+`./grm rm <repo> --token=<token>`
 
 ### Optional arguments
 
@@ -33,31 +33,31 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 - List all releases in this repository:
 
-`./console.php ls pavlepredic/github-release-manager`
+`./grm ls pavlepredic/github-release-manager`
 
 - List drafts:
 
-`./console.php ls pavlepredic/github-release-manager --type=draft`
+`./grm ls pavlepredic/github-release-manager --type=draft`
 
 - List releases made by me in this repository:
 
-`./console.php ls pavlepredic/github-release-manager --author pavlepredic`
+`./grm ls pavlepredic/github-release-manager --author pavlepredic`
 
 - List releases made by me and published before `2017-06-28` in this repository:
 
-`./console.php ls pavlepredic/github-release-manager --author pavlepredic --before 2017-06-28`
+`./grm ls pavlepredic/github-release-manager --author pavlepredic --before 2017-06-28`
 
 - Delete drafts:
 
-`./console.php del pavlepredic/github-release-manager --type=draft --token=<token>`
+`./grm rm pavlepredic/github-release-manager --type=draft --token=<token>`
 
 - Delete old releases:
 
-`./console.php del pavlepredic/github-release-manager --before 2017-06-28 --token=<token>`
+`./grm rm pavlepredic/github-release-manager --before 2017-06-28 --token=<token>`
 
 - Delete old releases along with associated tags:
 
-`./console.php del pavlepredic/github-release-manager --before 2017-06-28 --token=<token> --with-tags`
+`./grm del pavlepredic/github-release-manager --before 2017-06-28 --token=<token> --with-tags`
 
 ## Installation
 
