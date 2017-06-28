@@ -52,7 +52,7 @@ class DeleteReleasesCommand extends BaseReleasesCommand
             $this->printReleases($output, [$release]);
             if ($force || $helper->ask($input, $output, $question)) {
                 $client->deleteRelease($repo, $release['id']);
-                if ($withTags) {
+                if ($withTags && !$release['draft']) {
                     $client->deleteTag($repo, $release['tag_name']);
                 }
                 $output->writeln('Deleted');
