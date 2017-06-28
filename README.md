@@ -23,7 +23,8 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 - `--token` or `-t` : GitHub access token (required)
 - `--author` or `-a` : filter by author (using GitHub handle)
 - `--before` or `-b` : filter releases by date (only delete releases older than the provided date)
-- `--force` or `-f` : force the operation without asking for confirmation
+- `--force` or `-f` : force the operation without asking for confirmation (no value required)
+- `--with-tags` : also delete the associated tag (no value required)
 
 ## Examples
 
@@ -49,7 +50,7 @@ CLI tool for managing GitHub releases. Currently supports the following operatio
 
 - Delete old releases without asking for confirmation (dangerous):
 
-`./console.php del pavlepredic/github-release-manager --before 2017-06-28 --force=true --token=<token>`
+`./console.php del pavlepredic/github-release-manager --before 2017-06-28 --force --token=<token>`
 
 ## Installation
 
