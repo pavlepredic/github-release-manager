@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use PavlePredic\GithubReleaseManager\Service\GithubApiClient;
 use PavlePredic\GithubReleaseManager\Service\ReleaseFilter;
 use Symfony\Component\Console\Exception\InvalidOptionException;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,14 +59,17 @@ class DeleteReleasesCommand extends BaseReleasesCommand
             return;
         }
 
+        $progressBar = new ProgressBar($output, count($releases));
+        $progressBar->start();
         foreach ($releases as $release) {
             $client->deleteRelease($repo, $release['id']);
 
             if ($withTags && !$release['draft']) {
                 $client->deleteTag($repo, $release['tag_name']);
             }
+            $progressBar->advance();
         }
 
-        $output->writeln('Done');
+        $progressBar->finish();
     }
 }
