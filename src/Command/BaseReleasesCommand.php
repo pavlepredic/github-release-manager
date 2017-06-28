@@ -76,7 +76,6 @@ abstract class BaseReleasesCommand extends Command
         $table = new Table($output);
         $table->setHeaders([
             '#',
-            'Release ID',
             'Author',
             'Name',
             'Type',
@@ -94,11 +93,15 @@ abstract class BaseReleasesCommand extends Command
                 $type = 'prerelease';
             }
 
+            $name = $release['name'];
+            if (mb_strlen($name) > 50) {
+                $name = mb_substr($name, 0, 47) . '...';
+            }
+
             $table->addRow([
                 ++$i,
-                $release['id'],
                 $release['author']['login'],
-                $release['name'],
+                $name,
                 $type,
                 $release['tag_name'],
                 $release['created_at'],
